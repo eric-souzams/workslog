@@ -5,6 +5,7 @@ import com.api.workslog.api.model.EntregaModel;
 import com.api.workslog.api.model.input.EntregaInput;
 import com.api.workslog.domain.model.Entrega;
 import com.api.workslog.domain.repository.EntregaRepository;
+import com.api.workslog.domain.service.FinalizacaoEntregaService;
 import com.api.workslog.domain.service.SolicitacaoEntregaService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,7 @@ public class EntregaController {
 
     private EntregaRepository entregaRepository;
     private SolicitacaoEntregaService solicitacaoEntregaService;
-
+    private FinalizacaoEntregaService finalizacaoEntregaService;
     private EntregaAssembler entregaAssembler;
 
     @PostMapping
@@ -31,6 +32,12 @@ public class EntregaController {
         Entrega result = solicitacaoEntregaService.solicitar(novaEntrega);
 
         return entregaAssembler.toModel(result);
+    }
+
+    @PutMapping("/{entregaId}/finalizacao")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void finalizar(@PathVariable Long entregaId) {
+        finalizacaoEntregaService.finalizar(entregaId);
     }
 
     @GetMapping

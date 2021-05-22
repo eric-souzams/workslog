@@ -1,5 +1,6 @@
 package com.api.workslog.domain.model;
 
+import com.api.workslog.domain.exception.NegocioException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -48,5 +49,18 @@ public class Entrega {
         this.getOcorrencias().add(ocorrencia);
 
         return ocorrencia;
+    }
+
+    public void finalizar() {
+        if (!podeSerFinalizada()) {
+            throw new NegocioException("Entrega não pode ser finalizada.");
+        }
+
+        setStatus(StatusEntrega.FINALIZADA);
+        setDataFinalizacao(OffsetDateTime.now());
+    }
+
+    public boolean podeSerFinalizada() {
+        return StatusEntrega.PENDENTE.equals(getStatus());
     }
 }
