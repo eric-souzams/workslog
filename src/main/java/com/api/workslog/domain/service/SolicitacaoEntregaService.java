@@ -4,7 +4,6 @@ import com.api.workslog.domain.exception.NegocioException;
 import com.api.workslog.domain.model.Cliente;
 import com.api.workslog.domain.model.Entrega;
 import com.api.workslog.domain.model.StatusEntrega;
-import com.api.workslog.domain.repository.ClienteRepository;
 import com.api.workslog.domain.repository.EntregaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
